@@ -1,3 +1,0 @@
-﻿  MyForm.cpp
-S:\Repos\os-4\lab1\MyForm.h(130): error C2664: 'BOOL CreateProcessW(LPCWSTR,LPWSTR,LPSECURITY_ATTRIBUTES,LPSECURITY_ATTRIBUTES,BOOL,DWORD,LPVOID,LPCWSTR,LPSTARTUPINFOW,LPPROCESS_INFORMATION)': cannot convert argument 2 from 'const char [99]' to 'LPWSTR'
-  S:\Repos\os-4\lab1\MyForm.h(132): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
