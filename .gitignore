@@ -4,3 +4,13 @@
 .vs/slnx.sqlite
 .vs/VSWorkspaceState.json
 /lab1/file.docx
+/lab2/part1/Debug
+/lab2/.vs/lab2/v16
+/lab2/Debug
+*.db-wal
+*.db-shm
+*.db
+*.opendb
+*.ipch
+*.tlog
+*.cache

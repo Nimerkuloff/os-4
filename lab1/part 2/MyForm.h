@@ -11,9 +11,13 @@ namespace Project1
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	STARTUPINFO          sinfo;
+	
+
 	PROCESS_INFORMATION  pi;
-	std::vector<PROCESS_INFORMATION> vector;
+	std::vector<HANDLE> vector;
+
+
+
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public: MyForm(void)
@@ -116,23 +120,25 @@ namespace Project1
 
 	private:System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		// порождаем дочерний процесс
+		STARTUPINFO          sinfo;
+		memset(&sinfo, 0, sizeof(sinfo));
+
 		BOOL fSuccess = CreateProcess(NULL,
 			"Calc",
 			NULL, NULL, false, 0, NULL, NULL,
 			&sinfo, &pi);
 
-		vector.push_back(pi);
+			vector.push_back(pi.hProcess);
+			CloseHandle(pi.hThread);
 		
 	}
 
 	private: System::Void Button2_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		for each (PROCESS_INFORMATION pi in vector) {
+		for each (HANDLE h in vector) {
 			
-			TerminateProcess(pi.hProcess, 0);
-			CloseHandle(pi.hThread);
-			CloseHandle(pi.hProcess);
+			TerminateProcess(h, 0);
+			CloseHandle(h);
 		}
 		vector.clear();
 		
@@ -141,10 +147,8 @@ namespace Project1
 	private: System::Void Button3_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (!vector.empty()) {
 			
-			TerminateProcess(vector[vector.size() - 1].hProcess, 0);
-			CloseHandle(vector[vector.size() - 1].hThread);
-			CloseHandle(vector[vector.size() - 1].hProcess);
-			
+			TerminateProcess(vector.back(), 0);
+			CloseHandle(vector.back());
 			vector.pop_back();
 		}
 		

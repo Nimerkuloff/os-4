@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <windows.h>
+#include <shellapi.h>
+
 namespace Project1
 {
 	using namespace System;
@@ -9,8 +11,6 @@ namespace Project1
 	using namespace System::Data;
 	using namespace System::Drawing;
 	
-	STARTUPINFO          sinfo;
-	PROCESS_INFORMATION  pinfo;
 
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -79,15 +79,24 @@ namespace Project1
 	
 	private:System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		memset(&pinfo, 0, sizeof(pinfo));
-		memset(&sinfo, 0, sizeof(sinfo));
-		sinfo.cb = sizeof(sinfo);
-		CreateProcess(
-			NULL,
-			"C:\\Program Files\\Microsoft Office\\Office16\\WINWORD.EXE /n C:\\Users\\nimerkuloff\\Downloads\\file.docx",
-			NULL, NULL, false, 0,
-			NULL, NULL, &sinfo, &pinfo
-		);
+		
+		
+			
+			String lol	
+			LPCTSTR Path = (LPCTSTR)lol.constData();
+			ShellExecute(NULL, NULL, Path, NULL, NULL, SW_RESTORE);
+			int i = GetLastError();
+			if (i > 0)
+			{
+				wchar_t* intStr = new wchar_t;
+				_itow(i, intStr, 10);
+				wchar_t* buff = new wchar_t;
+				FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, i, 0, buff, someBuff, NULL);
+				lol = QString::fromLocal8Bit("Код ошибки ") + QString::fromWCharArray(intStr) +
+					" (" + QString::fromWCharArray(buff) + ")";
+				ui.PathLineEdit->setText(lol);
+			}
+		
 
 	}
 

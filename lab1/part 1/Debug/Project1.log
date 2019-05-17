@@ -1,4 +1,5 @@
 ﻿  MyForm.cpp
-  .NETFramework,Version=v4.6.1.AssemblyAttributes.cpp
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
-  Project1.vcxproj -> C:\Users\nimerkuloff\source\repos\Nimerkuloff\os-4\lab1\part 1\Debug\Project1.exe
+MyForm.obj : error LNK2028: unresolved token (0A000054) "extern "C" struct HINSTANCE__ * __stdcall ShellExecuteA(struct HWND__ *,char const *,char const *,char const *,char const *,int)" (?ShellExecuteA@@$$J224YGPAUHINSTANCE__@@PAUHWND__@@PBD111H@Z) referenced in function "private: void __clrcall Project1::MyForm::Button1_Click(class System::Object ^,class System::EventArgs ^)" (?Button1_Click@MyForm@Project1@@$$FA$AAMXP$AAVObject@System@@P$AAVEventArgs@4@@Z)
+MyForm.obj : error LNK2019: unresolved external symbol "extern "C" struct HINSTANCE__ * __stdcall ShellExecuteA(struct HWND__ *,char const *,char const *,char const *,char const *,int)" (?ShellExecuteA@@$$J224YGPAUHINSTANCE__@@PAUHWND__@@PBD111H@Z) referenced in function "private: void __clrcall Project1::MyForm::Button1_Click(class System::Object ^,class System::EventArgs ^)" (?Button1_Click@MyForm@Project1@@$$FA$AAMXP$AAVObject@System@@P$AAVEventArgs@4@@Z)
+C:\Users\nimerkuloff\source\repos\Nimerkuloff\os-4\lab1\part 1\Debug\Project1.exe : fatal error LNK1120: 2 unresolved externals
