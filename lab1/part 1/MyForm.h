@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <windows.h>
-#include "shell32.lib"
+#include <shellapi.h> //also add shell32.lib in Project Properties->Linker->Input->Additional Dependencies: 
 #include <string>
 
 namespace Project1
@@ -30,6 +30,7 @@ namespace Project1
 			}
 		}
 		private: System::Windows::Forms::Button^ button1;
+		private: System::Windows::Forms::Label^ label1;
 		private: System::ComponentModel::Container^ components;
 		#pragma region Windows Form Designer generated code
 				 /// <summary>
@@ -39,6 +40,7 @@ namespace Project1
 				 void InitializeComponent(void)
 				 {
 					 this->button1 = (gcnew System::Windows::Forms::Button());
+					 this->label1 = (gcnew System::Windows::Forms::Label());
 					 this->SuspendLayout();
 					 // 
 					 // button1
@@ -55,12 +57,21 @@ namespace Project1
 					 this->button1->UseVisualStyleBackColor = true;
 					 this->button1->Click += gcnew System::EventHandler(this, &MyForm::Button1_Click);
 					 // 
+					 // label1
+					 // 
+					 this->label1->AutoSize = true;
+					 this->label1->Location = System::Drawing::Point(118, 30);
+					 this->label1->Name = L"label1";
+					 this->label1->Size = System::Drawing::Size(0, 13);
+					 this->label1->TabIndex = 1;
+					 // 
 					 // MyForm
 					 // 
 					 this->AcceptButton = this->button1;
 					 this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 					 this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 					 this->ClientSize = System::Drawing::Size(282, 232);
+					 this->Controls->Add(this->label1);
 					 this->Controls->Add(this->button1);
 					 this->MaximizeBox = false;
 					 this->MinimizeBox = false;
@@ -78,13 +89,17 @@ namespace Project1
 	
 		private:System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
+			if (LaunchFile("file.docx")==2) {
+				label1->Text = "file not found";
+			}
+				
 			
 		
 		}
-				bool LaunchFile(const std::string& filename)
-				{
-					return 0 > ( ShellExecute(NULL, "open", filename.c_str(), NULL, NULL, SW_SHOWNORMAL));
-				}
+		int LaunchFile(const std::string& filename)
+		{
+			return  (int) ( ShellExecute(NULL, "open", filename.c_str(), NULL, NULL, SW_SHOWNORMAL));
+		}
 
 	
 
