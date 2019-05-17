@@ -115,28 +115,29 @@ namespace Project1
 
 			 }
 #pragma endregion
-
-
-
 	private:System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		STARTUPINFO          sinfo;
 		memset(&sinfo, 0, sizeof(sinfo));
 
-		BOOL fSuccess = CreateProcess(NULL,
+		if (CreateProcess(NULL,
 			"Calc",
 			NULL, NULL, false, 0, NULL, NULL,
-			&sinfo, &pi);
-
+			&sinfo, &pi)) 
+		{
 			vector.push_back(pi.hProcess);
 			CloseHandle(pi.hThread);
+		}
+		else {
+			//some code
+			GetLastError();
+			//some code
+		}
 		
 	}
 
 	private: System::Void Button2_Click(System::Object^ sender, System::EventArgs^ e) {
-
 		for each (HANDLE h in vector) {
-			
 			TerminateProcess(h, 0);
 			CloseHandle(h);
 		}
@@ -145,15 +146,12 @@ namespace Project1
 	}
 
 	private: System::Void Button3_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (!vector.empty()) {
-			
+		if (!vector.empty()) {	
 			TerminateProcess(vector.back(), 0);
 			CloseHandle(vector.back());
 			vector.pop_back();
 		}
 		
 	}
-
-	
 };
 }
