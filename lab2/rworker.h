@@ -7,7 +7,7 @@ class RWorker
 	HANDLE hUpdateEvt; //событие "данные обновились"
 	HANDLE hStopEvt;   //событие "конец работы"
 	HANDLE hMutex;  //защита данных
-	HANDLE hMutex1;
+
 
 	int    DATA;    //очень важные данные
 

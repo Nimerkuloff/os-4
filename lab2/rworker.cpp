@@ -2,13 +2,10 @@
 
 RWorker::RWorker()
 {
-	//—обытие с ручным управлением, изначально активное
 	hUpdateEvt = CreateEvent(NULL, TRUE, TRUE, NULL);
-	//—обытие с ручным управлением, изначально неактивное
 	hStopEvt = CreateEvent(NULL, TRUE, TRUE, NULL);
-	//ћютекс, пока свободный
-	hMutex = CreateMutex(NULL, FALSE, L"");
-	hMutex1 = CreateMutex(NULL, FALSE, NULL);
+	hMutex = CreateMutex(NULL, FALSE, NULL);
+	
 
 	DATA = 0;
 	hThread1 = INVALID_HANDLE_VALUE;
@@ -17,7 +14,7 @@ RWorker::RWorker()
 
 RWorker::~RWorker()
 {
-	stopWork();  //если работали, останавливаемс¤
+	stopWork();  
 	CloseHandle(hUpdateEvt);
 	CloseHandle(hStopEvt);
 	CloseHandle(hMutex);
@@ -45,7 +42,7 @@ void RWorker::stopWork()
 	hThread1 = INVALID_HANDLE_VALUE;
 
 	if (hThread2 == INVALID_HANDLE_VALUE) return;
-	SetEvent(hStopEvt);
+	
 
 	if (WaitForSingleObject(hThread2, 5000) != WAIT_OBJECT_0)
 	{
@@ -112,12 +109,12 @@ DWORD WINAPI RWorker::ThreadFunc_1(LPVOID ptr)
 
 	for (;;)
 	{
-		WaitForSingleObject(_this->hMutex1, INFINITE);
+		WaitForSingleObject(_this->hMutex, INFINITE);
 		_this->setData(_this->getData() - 3);
 		Sleep(1);
 		_this->setData(_this->getData() + 3);
 		_this->setLog1(_this->getData());
-		ReleaseMutex(_this->hMutex1);
+		ReleaseMutex(_this->hMutex);
 		if (WaitForSingleObject(_this->hStopEvt, 100) != WAIT_TIMEOUT)
 			break;
 	}
@@ -132,12 +129,12 @@ DWORD WINAPI RWorker::ThreadFunc_2(LPVOID ptr)
 
 	for (;;)
 	{
-		WaitForSingleObject(_this->hMutex1, INFINITE);
+		WaitForSingleObject(_this->hMutex, INFINITE);
 		_this->setData(_this->getData() + 3);
 		Sleep(1);
 		_this->setData(_this->getData() - 3);
 		_this->setLog2(_this->getData());
-		ReleaseMutex(_this->hMutex1);
+		ReleaseMutex(_this->hMutex);
 		if (WaitForSingleObject(_this->hStopEvt, 100) != WAIT_TIMEOUT)
 			break;
 	}

@@ -92,6 +92,9 @@ namespace Project1
 			if (LaunchFile("file.docx")==2) {
 				label1->Text = "file not found";
 			}
+			else if (LaunchFile("file.docx")<33) {
+				label1->Text = "error #"+LaunchFile("file.docx");
+			}
 				
 			
 		

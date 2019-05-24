@@ -13,7 +13,6 @@ namespace Project1
 
 	
 
-	PROCESS_INFORMATION  pi;
 	std::vector<HANDLE> vector;
 
 
@@ -117,6 +116,7 @@ namespace Project1
 #pragma endregion
 	private:System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e)
 	{
+	PROCESS_INFORMATION  pi;
 		STARTUPINFO          sinfo;
 		memset(&sinfo, 0, sizeof(sinfo));
 
